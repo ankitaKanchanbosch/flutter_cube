@@ -59,7 +59,7 @@ class Object {
   /// The local scale of this object relative to the parent. Default is Vector3(1.0, 1.0, 1.0). updateTransform after you change the value.
   final Vector3 scale = Vector3(1.0, 1.0, 1.0);
 
-  final Quaternion rotationQuaternion =Quaternion(0.0, 0.0, 0.0, 0.0);
+   Quaternion rotationQuaternion =Quaternion(0.0, 0.0, 0.0, 0.0);
 
   /// The name of this object.
   String? name;
