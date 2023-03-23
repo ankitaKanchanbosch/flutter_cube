@@ -100,8 +100,10 @@ class Object {
     transform.setFrom(m);
   }
 
+  ///This method will rotate object using Quaternion.
   void updateTransformQuaternion() {
-    final Matrix4 m = Matrix4.compose(position,rotationQuaternion, scale);
+    final Matrix4 m 
+    = Matrix4.compose(position,rotationQuaternion, scale);
     transform.setFrom(m);
   }
 
