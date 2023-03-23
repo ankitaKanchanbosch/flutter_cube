@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:vector_math/vector_math_64.dart';
 import 'scene.dart';
 import 'mesh.dart';
@@ -19,10 +18,12 @@ class Object {
     bool normalized = true,
     String? fileName,
     bool isAsset = true,
+    Quaternion? rotationQuaternion,
   }) {
     if (position != null) position.copyInto(this.position);
     if (rotation != null) rotation.copyInto(this.rotation);
     if (scale != null) scale.copyInto(this.scale);
+    if(rotationQuaternion!=null) rotationQuaternion.setFrom(this.rotationQuaternion);
     updateTransform();
     this.mesh = mesh ?? Mesh();
     this.children = children ?? <Object>[];
@@ -57,6 +58,8 @@ class Object {
 
   /// The local scale of this object relative to the parent. Default is Vector3(1.0, 1.0, 1.0). updateTransform after you change the value.
   final Vector3 scale = Vector3(1.0, 1.0, 1.0);
+
+  final Quaternion rotationQuaternion =Quaternion(0.0, 0.0, 0.0, 0.0);
 
   /// The name of this object.
   String? name;
@@ -94,6 +97,11 @@ class Object {
 
   void updateTransform() {
     final Matrix4 m = Matrix4.compose(position, Quaternion.euler(radians(rotation.y), radians(rotation.x), radians(rotation.z)), scale);
+    transform.setFrom(m);
+  }
+
+  void updateTransformQuaternion() {
+    final Matrix4 m = Matrix4.compose(position,rotationQuaternion, scale);
     transform.setFrom(m);
   }
 
